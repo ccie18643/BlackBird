@@ -1,0 +1,93 @@
+ah_support.o: ah_support.cc ah_support.h ah.h types.h support.h
+arp_advsupp.o: arp_advsupp.cc arp_advsupp.h arp_support.h arp.h types.h \
+  hr_type.h ether_type.h
+arp_support.o: arp_support.cc arp_support.h arp.h types.h hr_type.h \
+  ether_type.h support.h
+cdp_support.o: cdp_support.cc cdp_support.h cdp.h types.h support.h
+cksum.o: cksum.cc cksum.h types.h
+dhcp_support.o: dhcp_support.cc dhcp_support.h dhcp.h types.h support.h
+eigrp_support.o: eigrp_support.cc eigrp_support.h eigrp.h types.h \
+  support.h
+enc_support.o: enc_support.cc enc_support.h enc.h types.h support.h
+esp_support.o: esp_support.cc esp_support.h esp.h types.h support.h
+ether_advsupp.o: ether_advsupp.cc ether_advsupp.h ether_support.h ether.h \
+  types.h ether_type.h ip_advsupp.h ip_support.h ip.h ip_proto.h \
+  arp_advsupp.h arp_support.h arp.h hr_type.h
+ether_support.o: ether_support.cc ether_support.h ether.h types.h \
+  ether_type.h support.h
+ether_vlan_advsupp.o: ether_vlan_advsupp.cc ether_vlan_advsupp.h \
+  ether_vlan_support.h ether_vlan.h types.h ether_type.h ip_advsupp.h \
+  ip_support.h ip.h ip_proto.h arp_advsupp.h arp_support.h arp.h \
+  hr_type.h
+ether_vlan_support.o: ether_vlan_support.cc ether_vlan_support.h \
+  ether_vlan.h types.h ether_type.h support.h
+ethloop_support.o: ethloop_support.cc ethloop_support.h ethloop.h types.h \
+  support.h
+gif_support.o: gif_support.cc gif_support.h gif.h types.h support.h
+gre_support.o: gre_support.cc gre_support.h gre.h types.h support.h
+icmp6_support.o: icmp6_support.cc icmp6_support.h icmp6.h types.h \
+  support.h
+icmp_advsupp.o: icmp_advsupp.cc icmp_advsupp.h icmp_support.h icmp.h ip.h \
+  types.h ip_proto.h ip_support.h cksum.h
+icmp_support.o: icmp_support.cc icmp_support.h icmp.h ip.h types.h \
+  ip_proto.h ip_support.h support.h
+ieee8023_advsupp.o: ieee8023_advsupp.cc ieee8023_advsupp.h \
+  ieee8023_support.h ieee8023.h types.h ip_advsupp.h ip_support.h ip.h \
+  ip_proto.h
+ieee8023_support.o: ieee8023_support.cc ieee8023_support.h ieee8023.h \
+  types.h support.h
+igmp_support.o: igmp_support.cc igmp_support.h igmp.h types.h support.h
+igrp_support.o: igrp_support.cc igrp_support.h igrp.h types.h support.h
+ip6_support.o: ip6_support.cc ip6_support.h ip6.h types.h ip_proto.h \
+  support.h cksum.h
+ip_advsupp.o: ip_advsupp.cc ip_advsupp.h ip_support.h ip.h types.h \
+  ip_proto.h tcp_advsupp.h tcp_support.h tcp.h udp_advsupp.h \
+  udp_support.h udp.h icmp_advsupp.h icmp_support.h icmp.h cksum.h
+ip_support.o: ip_support.cc ip_support.h ip.h types.h ip_proto.h \
+  support.h cksum.h
+ipx_support.o: ipx_support.cc ipx_support.h ipx.h support.h types.h
+llc_i_advsupp.o: llc_i_advsupp.cc llc_i_advsupp.h llc_i_support.h llc_i.h \
+  types.h llc.h
+llc_i_support.o: llc_i_support.cc llc_i_support.h llc_i.h types.h llc.h \
+  support.h
+llc_s_advsupp.o: llc_s_advsupp.cc llc_s_advsupp.h llc_s_support.h llc_s.h \
+  types.h llc.h
+llc_s_support.o: llc_s_support.cc llc_s_support.h llc_s.h types.h llc.h \
+  support.h
+llc_u_advsupp.o: llc_u_advsupp.cc llc_u_advsupp.h llc_u_support.h llc_u.h \
+  types.h llc.h
+llc_u_support.o: llc_u_support.cc llc_u_support.h llc_u.h types.h llc.h \
+  support.h
+loop_support.o: loop_support.cc loop_support.h loop.h types.h support.h
+ospf_support.o: ospf_support.cc ospf_support.h ospf.h types.h support.h
+packet_handler.o: packet_handler.cc support.h types.h ether_support.h \
+  ether.h ether_type.h ether_vlan_support.h ether_vlan.h \
+  ieee8023_support.h ieee8023.h raw8023_support.h raw8023.h gif_support.h \
+  gif.h loop_support.h loop.h enc_support.h enc.h llc_i_support.h llc_i.h \
+  llc.h llc_s_support.h llc_s.h llc_u_support.h llc_u.h snap_support.h \
+  snap.h ip_support.h ip.h ip_proto.h arp_support.h arp.h hr_type.h \
+  icmp_support.h icmp.h icmp6_support.h icmp6.h ip6_support.h ip6.h \
+  udp_support.h udp.h tcp_support.h tcp.h ipx_support.h ipx.h \
+  spx_support.h spx.h rip_support.h rip.h ripng_support.h ripng.h \
+  igmp_support.h igmp.h cdp_support.h cdp.h esp_support.h esp.h \
+  ah_support.h ah.h gre_support.h gre.h ethloop_support.h ethloop.h \
+  igrp_support.h igrp.h eigrp_support.h eigrp.h ospf_support.h ospf.h \
+  dhcp_support.h dhcp.h cksum.h packet_handler.h
+raw8023_advsupp.o: raw8023_advsupp.cc raw8023_advsupp.h raw8023_support.h \
+  raw8023.h types.h ip_advsupp.h ip_support.h ip.h ip_proto.h
+raw8023_support.o: raw8023_support.cc raw8023_support.h raw8023.h types.h \
+  support.h
+rip_support.o: rip_support.cc rip_support.h rip.h types.h support.h
+ripng_support.o: ripng_support.cc ripng_support.h ripng.h types.h \
+  support.h
+snap_support.o: snap_support.cc snap_support.h snap.h types.h \
+  ether_type.h support.h
+spx_support.o: spx_support.cc spx_support.h spx.h support.h types.h
+support.o: support.cc ip6.h types.h ip_proto.h ether.h ether_type.h
+tcp_advsupp.o: tcp_advsupp.cc tcp_advsupp.h tcp_support.h tcp.h types.h \
+  ip_support.h ip.h ip_proto.h ip6_support.h ip6.h cksum.h
+tcp_support.o: tcp_support.cc tcp_support.h tcp.h types.h support.h
+udp_advsupp.o: udp_advsupp.cc udp_advsupp.h udp_support.h udp.h types.h \
+  ip_support.h ip.h ip_proto.h ip6_support.h ip6.h cksum.h
+udp_support.o: udp_support.cc udp_support.h udp.h types.h support.h
+version.o: version.cc version.h

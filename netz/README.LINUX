@@ -1,0 +1,22 @@
+To install netz for Linux, you should first install libpcap library and change following lines in file /usr/local/include/bpf.h 
+
+     #endif /* BSD && (_KERNEL || KERNEL) */
+     #if __STDC__
+-->  extern int bpf_validate(struct bpf_insn *, int);
+     extern u_int bpf_filter(struct bpf_insn *, u_char *, u_int, u_int);
+     #else
+-->  extern int bpf_validate();
+-->  extern u_int bpf_filter();
+     #endif
+
+to
+
+     #endif /* BSD && (_KERNEL || KERNEL) */
+     #if __STDC__
+-->  extern "C" int bpf_validate(struct bpf_insn *, int);
+-->  extern "C" u_int bpf_filter(struct bpf_insn *, u_char *, u_int, u_int);
+     #else
+     extern int bpf_validate();
+-->  extern "C" u_int bpf_filter();
+     #endif
+
