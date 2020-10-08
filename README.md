@@ -4,10 +4,10 @@ My first network related project back from 2001. Blackbird is a packet sniffer d
 
 
 ### Sample OSPF communication packet captures
-![Sample Blackbird OSPF output](https://github.com/ccie18643/Blackbird/blob/master/pictures/ospf_01.png)
+![Sample Blackbird OSPF output](https://github.com/ccie18643/Blackbird/blob/main/pictures/ospf_01.png)
 
-![Sample Blackbird OSPF output](https://github.com/ccie18643/Blackbird/blob/master/pictures/ospf_02.png)
+![Sample Blackbird OSPF output](https://github.com/ccie18643/Blackbird/blob/main/pictures/ospf_02.png)
 
-![Sample Blackbird OSPF output](https://github.com/ccie18643/Blackbird/blob/master/pictures/ospf_03.png)
+![Sample Blackbird OSPF output](https://github.com/ccie18643/Blackbird/blob/main/pictures/ospf_03.png)
 
-![Sample Blackbird OSPF output](https://github.com/ccie18643/Blackbird/blob/master/pictures/ospf_04.png)
+![Sample Blackbird OSPF output](https://github.com/ccie18643/Blackbird/blob/main/pictures/ospf_04.png)
