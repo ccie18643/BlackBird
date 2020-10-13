@@ -1,4 +1,4 @@
-#! /bin/ksh
+#! /bin/sh
 
 NAME=netz
 MAJOR_VERSION=$(head -1 VERSION)

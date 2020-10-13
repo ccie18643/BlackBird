@@ -1,4 +1,4 @@
-#! /bin/ksh
+#! /bin/sh
 NAME=bbird
 MAJOR_VERSION=$(head -1 VERSION)
 MINOR_VERSION=$(tail -1 VERSION)
