@@ -47,8 +47,8 @@ c_string igmp_packet_handler(c_packet_info packet_info)
 
     c_igmp_header header(packet_info.packet);
 
-    output_string.add("IGMP\t");
-    output_string.add("TYPE %u  CODE %u ",
+    output_string.add((char*)"IGMP\t");
+    output_string.add((char*)"TYPE %u  CODE %u ",
         header.get_type(),
         header.get_code()); 
 
@@ -58,20 +58,20 @@ c_string igmp_packet_handler(c_packet_info packet_info)
 
     conv_ip_str(igmp_group_string, header.get_group());
 
-    output_string.add("  GROUP %s  CKSUM %u ",
+    output_string.add((char*)"  GROUP %s  CKSUM %u ",
         igmp_group_string,
         header.get_cksum()); 
 
     if(!cksum((byte*)header.get_header(), sizeof(s_igmp_header)))
     {
-        output_string.add("(OK)");
+        output_string.add((char*)"(OK)");
     }
     else
     {
-        output_string.add("(BAD)");
+        output_string.add((char*)"(BAD)");
     }
 
-    output_string.add("\n");	 
+    output_string.add((char*)"\n");	 
 
     output_string += debug(packet_info);
 
@@ -86,31 +86,31 @@ c_string print_igmp_info(u_int type)
     switch(type)
     {
         case IGMP_HOST_MEMBERSHIP_QUERY:
-            return c_string("membership querry");
+            return c_string((char*)"membership querry");
 
         case IGMP_V1_HOST_MEMBERSHIP_REPORT:
-            return c_string("v1 membership report");
+            return c_string((char*)"v1 membership report");
 
         case IGMP_DVMRP:
-            return c_string("DVMRP routing message");
+            return c_string((char*)"DVMRP routing message");
 
         case IGMP_PIM:
-            return c_string("PIM routing message");
+            return c_string((char*)"PIM routing message");
 
         case IGMP_V2_HOST_MEMBERSHIP_REPORT:
-            return c_string("v2 membersip report");
+            return c_string((char*)"v2 membersip report");
 
         case IGMP_HOST_LEAVE_MESSAGE:
-            return c_string("leave-group message");
+            return c_string((char*)"leave-group message");
 
         case IGMP_MTRACE_REPLY:
-            return c_string("traceroute reply");
+            return c_string((char*)"traceroute reply");
 
         case IGMP_MTRACE_QUERY:
-            return c_string("traceroute query");
+            return c_string((char*)"traceroute query");
 
         default:
-            return c_string("unknown");
+            return c_string((char*)"unknown");
     }
 }
 

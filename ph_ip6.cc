@@ -49,20 +49,20 @@ c_string ip6_packet_handler(c_packet_info packet_info)
 
     c_ip6_header header(packet_info.packet);
 
-    output_string.add("IPv6\t");
+    output_string.add((char*)"IPv6\t");
 
     string addr_string[40];
 
-    output_string.add("SRC %s\n", conv_ip6_str(addr_string,
+    output_string.add((char*)"SRC %s\n", conv_ip6_str(addr_string,
         header.get_src()));
 
-    output_string.add("\t");
+    output_string.add((char*)"\t");
 
-    output_string.add("DST %s\n", conv_ip6_str(addr_string,
+    output_string.add((char*)"DST %s\n", conv_ip6_str(addr_string,
         header.get_dst()));
 
     output_string.add(
-        "\tVER %u  TCLASS %u  FLABEL %u  PLEN %u  NEXT 0x%02X (",
+        (char*)"\tVER %u  TCLASS %u  FLABEL %u  PLEN %u  NEXT 0x%02X (",
         header.get_ver(),
         header.get_tclass(),
         header.get_flabel(),
@@ -71,7 +71,7 @@ c_string ip6_packet_handler(c_packet_info packet_info)
 
     output_string += print_ip_proto(header.get_next());
 
-    output_string.add(")  HLIMIT %u\n",
+    output_string.add((char*)")  HLIMIT %u\n",
         header.get_hlimit());
 
     output_string += debug(packet_info);

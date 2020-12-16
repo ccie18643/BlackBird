@@ -73,42 +73,42 @@ void write_packet_type(e_packet_type packet_type)
 {
     switch(packet_type)
     {
-        case PACKET_TYPE_ARP: message("arp "); break;
-        case PACKET_TYPE_ETHER: message("ether "); break;
-        case PACKET_TYPE_ETHER_VLAN: message("ether_vlan "); break;
-        case PACKET_TYPE_IEEE8023: message("ieee8023 "); break;
-        case PACKET_TYPE_RAW8023: message("raw8023 "); break;
-        case PACKET_TYPE_ICMP: message("icmp "); break;
-        case PACKET_TYPE_ICMP6: message("icmp6 "); break;
-        case PACKET_TYPE_IGMP: message("igmp "); break;
-        case PACKET_TYPE_IP: message("ip "); break;
-        case PACKET_TYPE_IP6: message("ip6 "); break;
-        case PACKET_TYPE_IPX: message("ipx "); break;
-        case PACKET_TYPE_LLC_I: message("llc_i "); break;
-        case PACKET_TYPE_LLC_S: message("llc_s "); break;
-        case PACKET_TYPE_LLC_U: message("llc_u "); break;
-        case PACKET_TYPE_GIF: message("gif "); break;
-        case PACKET_TYPE_LOOP: message("loop "); break;
-        case PACKET_TYPE_ENC: message("enc "); break;
-        case PACKET_TYPE_SNAP: message("snap "); break;
-        case PACKET_TYPE_TCP: message("tcp "); break;
-        case PACKET_TYPE_UDP: message("udp "); break;
-        case PACKET_TYPE_SPX: message("spx "); break;
-        case PACKET_TYPE_RIP: message("rip "); break;
-        case PACKET_TYPE_RIPNG: message("ripng "); break;
-        case PACKET_TYPE_CDP: message("cdp "); break;
-        case PACKET_TYPE_ESP: message("esp "); break;
-        case PACKET_TYPE_AH: message("ah "); break;
-        case PACKET_TYPE_ISAKMP: message("isakmp "); break;
-        case PACKET_TYPE_GRE: message("gre "); break;
-        case PACKET_TYPE_IGRP: message("igrp "); break;
-        case PACKET_TYPE_EIGRP: message("eigrp "); break;
-        case PACKET_TYPE_OSPF: message("ospf "); break;
-        case PACKET_TYPE_BGP: message("bgp "); break;
-        case PACKET_TYPE_ETHLOOP: message("ethloop "); break;
-        case PACKET_TYPE_DHCP: message("dhcp "); break;
-        case PACKET_TYPE_NONE: message("none "); break;
-        case PACKET_TYPE_UNKNOWN: message("unknown "); break;
+        case PACKET_TYPE_ARP: message((char*) "arp "); break;
+        case PACKET_TYPE_ETHER: message((char*) "ether "); break;
+        case PACKET_TYPE_ETHER_VLAN: message((char*) "ether_vlan "); break;
+        case PACKET_TYPE_IEEE8023: message((char*) "ieee8023 "); break;
+        case PACKET_TYPE_RAW8023: message((char*) "raw8023 "); break;
+        case PACKET_TYPE_ICMP: message((char*) "icmp "); break;
+        case PACKET_TYPE_ICMP6: message((char*) "icmp6 "); break;
+        case PACKET_TYPE_IGMP: message((char*) "igmp "); break;
+        case PACKET_TYPE_IP: message((char*) "ip "); break;
+        case PACKET_TYPE_IP6: message((char*) "ip6 "); break;
+        case PACKET_TYPE_IPX: message((char*) "ipx "); break;
+        case PACKET_TYPE_LLC_I: message((char*) "llc_i "); break;
+        case PACKET_TYPE_LLC_S: message((char*) "llc_s "); break;
+        case PACKET_TYPE_LLC_U: message((char*) "llc_u "); break;
+        case PACKET_TYPE_GIF: message((char*) "gif "); break;
+        case PACKET_TYPE_LOOP: message((char*) "loop "); break;
+        case PACKET_TYPE_ENC: message((char*) "enc "); break;
+        case PACKET_TYPE_SNAP: message((char*) "snap "); break;
+        case PACKET_TYPE_TCP: message((char*) "tcp "); break;
+        case PACKET_TYPE_UDP: message((char*) "udp "); break;
+        case PACKET_TYPE_SPX: message((char*) "spx "); break;
+        case PACKET_TYPE_RIP: message((char*) "rip "); break;
+        case PACKET_TYPE_RIPNG: message((char*) "ripng "); break;
+        case PACKET_TYPE_CDP: message((char*) "cdp "); break;
+        case PACKET_TYPE_ESP: message((char*) "esp "); break;
+        case PACKET_TYPE_AH: message((char*) "ah "); break;
+        case PACKET_TYPE_ISAKMP: message((char*) "isakmp "); break;
+        case PACKET_TYPE_GRE: message((char*) "gre "); break;
+        case PACKET_TYPE_IGRP: message((char*) "igrp "); break;
+        case PACKET_TYPE_EIGRP: message((char*) "eigrp "); break;
+        case PACKET_TYPE_OSPF: message((char*) "ospf "); break;
+        case PACKET_TYPE_BGP: message((char*) "bgp "); break;
+        case PACKET_TYPE_ETHLOOP: message((char*) "ethloop "); break;
+        case PACKET_TYPE_DHCP: message((char*) "dhcp "); break;
+        case PACKET_TYPE_NONE: message((char*) "none "); break;
+        case PACKET_TYPE_UNKNOWN: message((char*) "unknown "); break;
     }
 }
 
@@ -946,18 +946,18 @@ c_packet_info c_packet_handler::udp_packet_handler(c_packet_info packet_info)
 
         packet_info.next_packet_type = PACKET_TYPE_UNKNOWN;
 
-        if(header.get_sport() == UDP_PORT_RIP | header.get_dport() == UDP_PORT_RIP) 
+        if((header.get_sport() == UDP_PORT_RIP) || (header.get_dport() == UDP_PORT_RIP)) 
         {
                 packet_info.next_packet_type = PACKET_TYPE_RIP;
         }
         
-        if(header.get_sport() == UDP_PORT_RIPNG | header.get_dport() == UDP_PORT_RIPNG) 
+        if((header.get_sport() == UDP_PORT_RIPNG) || (header.get_dport() == UDP_PORT_RIPNG)) 
         {
                 packet_info.next_packet_type = PACKET_TYPE_RIPNG;
         }
 
-        if(header.get_sport() == UDP_PORT_DHCP_SERVER | header.get_dport() == UDP_PORT_DHCP_SERVER |
-           header.get_sport() == UDP_PORT_DHCP_CLIENT | header.get_dport() == UDP_PORT_DHCP_CLIENT)
+        if((header.get_sport() == UDP_PORT_DHCP_SERVER) || (header.get_dport() == UDP_PORT_DHCP_SERVER) ||
+           (header.get_sport() == UDP_PORT_DHCP_CLIENT) || (header.get_dport() == UDP_PORT_DHCP_CLIENT))
         {
                 packet_info.next_packet_type = PACKET_TYPE_DHCP;
         }

@@ -64,7 +64,7 @@ c_string ip_packet_handler(c_packet_info packet_info)
 
     c_ip_header header(packet_info.header);
 
-    output_string.add("IP\t");
+    output_string.add((char*)"IP\t");
 
     string ip_src_string[16];
     string ip_dst_string[16];
@@ -72,176 +72,176 @@ c_string ip_packet_handler(c_packet_info packet_info)
     conv_ip_str(ip_src_string, header.get_src());
     conv_ip_str(ip_dst_string, header.get_dst());
 
-    output_string.add("SRC %s  DST %s  ",
+    output_string.add((char*)"SRC %s  DST %s  ",
         ip_src_string,
         ip_dst_string);
 
-    output_string.add("VER %u  ",
+    output_string.add((char*)"VER %u  ",
         header.get_ver());
 
-    output_string.add("CKSUM %u ",
+    output_string.add((char*)"CKSUM %u ",
         header.get_cksum());
 	 
     if(!cksum((byte*)header.get_header(), header.get_hlen()))
     {
-	output_string.add("(OK)");
+	output_string.add((char*)"(OK)");
     }
     else
     {
-	output_string.add("(BAD)");
+	output_string.add((char*)"(BAD)");
     }	 
 
 
 
-    output_string.add_hex("\n\tTOS 0x%02X ",
+    output_string.add_hex((char*)"\n\tTOS 0x%02X ",
         header.get_tos());
 
-    output_string.add_hex("(PREC 0x%02X ",
+    output_string.add_hex((char*)"(PREC 0x%02X ",
         header.get_tos_prec());
 
     switch(header.get_tos_prec())
     {
         case IP_TOS_PREC_NETCONTROL:
-            output_string.add("Network Control");
+            output_string.add((char*)"Network Control");
             break;
 
         case IP_TOS_PREC_INTERNETCONTROL:
-            output_string.add("Internetwork Control");
+            output_string.add((char*)"Internetwork Control");
             break;
 
         case IP_TOS_PREC_CRITICECP:
-            output_string.add("CRITIC/ECP");
+            output_string.add((char*)"CRITIC/ECP");
             break;
 
         case IP_TOS_PREC_FLASHOVERRIDE:
-            output_string.add("Flash Overide");
+            output_string.add((char*)"Flash Overide");
             break;
 
         case IP_TOS_PREC_FLASH:
-            output_string.add("Flash");
+            output_string.add((char*)"Flash");
             break;
 
         case IP_TOS_PREC_IMMEDIATE:
-            output_string.add("Immediate");
+            output_string.add((char*)"Immediate");
             break;
 
         case IP_TOS_PREC_PRIORITY:
-            output_string.add("Priority"); 
+            output_string.add((char*)"Priority"); 
             break;
 
         case IP_TOS_PREC_ROUTINE:
-            output_string.add("Routine"); 
+            output_string.add((char*)"Routine"); 
             break;
 
         default:
-            output_string.add("Unknown"); 
+            output_string.add((char*)"Unknown"); 
     }
 
-    output_string.add(", FLAGS |");
+    output_string.add((char*)", FLAGS |");
 
     if(header.get_tos_delay())
     {
-        output_string.add("D|");
+        output_string.add((char*)"D|");
     }
     else
     {
-        output_string.add(" |");
+        output_string.add((char*)" |");
     }
 
     if(header.get_tos_throughput())
     {
-        output_string.add("T|");
+        output_string.add((char*)"T|");
     }
     else
     {
-        output_string.add(" |");
+        output_string.add((char*)" |");
     }
 
     if(header.get_tos_reliability())
     {
-        output_string.add("R|");
+        output_string.add((char*)"R|");
     }
     else
     {
-        output_string.add(" |");
+        output_string.add((char*)" |");
     }
 
     if(header.get_tos_ectcap())
     {
-        output_string.add("E|");
+        output_string.add((char*)"E|");
     }
     else
     {
-        output_string.add(" |");
+        output_string.add((char*)" |");
     }
 
     if(header.get_tos_congestion())
     {
-        output_string.add("C|");
+        output_string.add((char*)"C|");
     }
     else
     {
-        output_string.add(" |");
+        output_string.add((char*)" |");
     }
 
-    output_string.add(")\n");
+    output_string.add((char*)")\n");
 
-    output_string.add("\tTTL %u  ID %u  ",
+    output_string.add((char*)"\tTTL %u  ID %u  ",
         header.get_ttl(),
         header.get_id());
 
-    output_string.add_hex("FRAG 0x%02X ",
+    output_string.add_hex((char*)"FRAG 0x%02X ",
         header.get_frag());
    
-    output_string.add("(FLAGS |"); 
+    output_string.add((char*)"(FLAGS |"); 
  
     if(header.get_frag_rf())
     {
-        output_string.add("RF|");
+        output_string.add((char*)"RF|");
     }
     else
     {
-        output_string.add("  |");
+        output_string.add((char*)"  |");
     }
  
     if(header.get_frag_df())
     {
-        output_string.add("DF|");
+        output_string.add((char*)"DF|");
     }
     else
     {
-        output_string.add("  |");
+        output_string.add((char*)"  |");
     }
  
     if(header.get_frag_mf())
     {
-        output_string.add("MF|");
+        output_string.add((char*)"MF|");
     }
     else
     {
-        output_string.add("  |");
+        output_string.add((char*)"  |");
     }
  
-    output_string.add(", OFFSET %u)  ",
+    output_string.add((char*)", OFFSET %u)  ",
         header.get_frag_off());
 
-    output_string.add("\n\tHLEN %u  PLEN %u  OLEN %u  DLEN %u  ",
+    output_string.add((char*)"\n\tHLEN %u  PLEN %u  OLEN %u  DLEN %u  ",
         header.get_hlen(),
         header.get_len(),
         header.get_hlen() - sizeof(s_ip_header),
         header.get_len() - header.get_hlen());
 
-    output_string.add("PROTO %u (",
+    output_string.add((char*)"PROTO %u (",
         header.get_proto());
 
     output_string += print_ip_proto(header.get_proto());     
 
-    output_string.add(")");
+    output_string.add((char*)")");
 
     output_string += ip_options_handler(packet_info); 
     
 
-    output_string.add("\n");
+    output_string.add((char*)"\n");
 
     output_string += debug(packet_info);
 
@@ -277,7 +277,7 @@ c_string ip_option_handler(byte* options, u_int& pos)
 {
     c_string option_string;
 
-    option_string.add("[");
+    option_string.add((char*)"[");
 
     switch(c_ipopt_generic(options + pos).get_code())
     {
@@ -372,7 +372,7 @@ c_string ip_option_handler(byte* options, u_int& pos)
         }
     }
 
-    option_string.add("] ");
+    option_string.add((char*)"] ");
 
     return option_string; 
 }
@@ -382,7 +382,7 @@ c_string ip_option_handler(c_ipopt_eol)
 {
     c_string option_string;
 
-    option_string.add("eol");
+    option_string.add((char*)"eol");
 
     return option_string;
 }
@@ -392,7 +392,7 @@ c_string ip_option_handler(c_ipopt_nop)
 {
     c_string option_string;
 
-    option_string.add("nop");
+    option_string.add((char*)"nop");
 
     return option_string;
 }
@@ -404,7 +404,7 @@ c_string ip_option_handler(c_ipopt_rr option)
 
     u_int rr_count = (option.get_ptr() - 4) / IPOPT_RR_DATALEN;
 
-    option_string.add("rr %u(%u)", 
+    option_string.add((char*)"rr %u(%u)", 
         option.get_ptr(),
         rr_count);
 
@@ -412,7 +412,7 @@ c_string ip_option_handler(c_ipopt_rr option)
     {
         string ip_string[16];
 
-        option_string.add(" {%s}",
+        option_string.add((char*)" {%s}",
             conv_ip_str(ip_string, option.get_ip(i)));
     }
 
@@ -424,7 +424,7 @@ c_string ip_option_handler(c_ipopt_pmtu option)
 {
     c_string option_string;
 
-    option_string.add("pmtu %u",
+    option_string.add((char*)"pmtu %u",
         option.get_mtu());
 
     return option_string;
@@ -435,7 +435,7 @@ c_string ip_option_handler(c_ipopt_rmtu option)
 {
     c_string option_string;
 
-    option_string.add("rmtu %u",
+    option_string.add((char*)"rmtu %u",
         option.get_mtu());
 
     return option_string;
@@ -448,7 +448,7 @@ c_string ip_option_handler(c_ipopt_ts option)
 
     u_int ts_count = 0;
 
-    option_string.add("ts %u",
+    option_string.add((char*)"ts %u",
         option.get_ptr());
 
     switch(option.get_flags())
@@ -457,14 +457,14 @@ c_string ip_option_handler(c_ipopt_ts option)
 
             ts_count = (option.get_ptr() - 5) / IPOPT_TS_TSONLY_DATALEN; 
 
-            option_string.add("(%u) %u %u ",
+            option_string.add((char*)"(%u) %u %u ",
                 ts_count, 
                 option.get_ovflow(),
                 option.get_flags()); 
 
             for(u_int i = 0; i < ts_count; i++)
             {
-                 option_string.add(" {%u}",
+                 option_string.add((char*)" {%u}",
                      option.get_timestamp(i));
             }
 
@@ -474,7 +474,7 @@ c_string ip_option_handler(c_ipopt_ts option)
 
             ts_count = (option.get_ptr() - 5) / IPOPT_TS_TSANDADDR_DATALEN; 
 
-            option_string.add("(%u) %u %u ",
+            option_string.add((char*)"(%u) %u %u ",
                 ts_count, 
                 option.get_ovflow(),
                 option.get_flags()); 
@@ -483,7 +483,7 @@ c_string ip_option_handler(c_ipopt_ts option)
             {
                  string ip_string[16];
 
-                 option_string.add(" {%s : %u}",
+                 option_string.add((char*)" {%s : %u}",
                      conv_ip_str(ip_string, option.get_ip(i)),
                      option.get_timestamp(i));
             }
@@ -494,7 +494,7 @@ c_string ip_option_handler(c_ipopt_ts option)
 
             ts_count = (option.get_ptr() - 5) / IPOPT_TS_PRESPEC_DATALEN; 
 
-            option_string.add("(%u) %u %u ",
+            option_string.add((char*)"(%u) %u %u ",
                 ts_count, 
                 option.get_ovflow(),
                 option.get_flags()); 
@@ -503,7 +503,7 @@ c_string ip_option_handler(c_ipopt_ts option)
             {
                  string ip_string[16];
 
-                 option_string.add(" {%s : %u}",
+                 option_string.add((char*)" {%s : %u}",
                      conv_ip_str(ip_string, option.get_ip(i)), 
                      option.get_timestamp(i));
             }
@@ -521,7 +521,7 @@ c_string ip_option_handler(c_ipopt_tr option)
 
     string ip_string[16];
 
-    option_string.add("tr %u %u %u %s",
+    option_string.add((char*)"tr %u %u %u %s",
         option.get_id(),
         option.get_ohcount(),
         option.get_rhcount(),
@@ -535,32 +535,32 @@ c_string ip_option_handler(c_ipopt_sec option)
 {
     c_string option_string;
 
-    option_string.add("sec %u (",
+    option_string.add((char*)"sec %u (",
         option.get_cl());
 
     switch(option.get_cl())
     {
         case 222:
-            option_string.add("Top Secret");
+            option_string.add((char*)"Top Secret");
             break;
 
         case 173:
-            option_string.add("Secret");
+            option_string.add((char*)"Secret");
             break;
 
         case 122:
-            option_string.add("Confidential");
+            option_string.add((char*)"Confidential");
             break;
 
         case 85:
-            option_string.add("Unclasified");
+            option_string.add((char*)"Unclasified");
             break;
 
         default:
-            option_string.add("Unknown"); 
+            option_string.add((char*)"Unknown"); 
     }
 
-    option_string.add(")");
+    option_string.add((char*)")");
 
                     
     if(option.get_len() > IPOPT_SEC_LEN)
@@ -570,46 +570,46 @@ c_string ip_option_handler(c_ipopt_sec option)
  
         do 
         {
-            option_string.add(" {");
+            option_string.add((char*)" {");
 
             coma_flag=0;
 
             if(option.get_flags(i) & 128)
             {
-                if(coma_flag) option_string.add(", ");
-                option_string.add("GENSEC");
+                if(coma_flag) option_string.add((char*)", ");
+                option_string.add((char*)"GENSEC");
                 coma_flag = true;
             }
 
             if(option.get_flags(i) & 64)
             {
-                if(coma_flag) option_string.add(", ");
-                option_string.add("SIOP-ESI");
+                if(coma_flag) option_string.add((char*)", ");
+                option_string.add((char*)"SIOP-ESI");
                 coma_flag = true;
             }
 
             if(option.get_flags(i) & 32)
             {
-                if(coma_flag) option_string.add(", ");
-                option_string.add("SCI");
+                if(coma_flag) option_string.add((char*)", ");
+                option_string.add((char*)"SCI");
                 coma_flag = true;
             }
 
             if(option.get_flags(i) & 16)
             {
-                if(coma_flag) option_string.add(", ");
-                option_string.add("NSA");
+                if(coma_flag) option_string.add((char*)", ");
+                option_string.add((char*)"NSA");
                 coma_flag = true;
             }
 
             if(option.get_flags(i) & 8)
             {
-                if(coma_flag) option_string.add(", ");
-                option_string.add("DOE");
+                if(coma_flag) option_string.add((char*)", ");
+                option_string.add((char*)"DOE");
                 coma_flag = true;
             }
             
-            option_string.add("}");
+            option_string.add((char*)"}");
  
             i++;
         }
@@ -626,7 +626,7 @@ c_string ip_option_handler(c_ipopt_lsrr option)
 
     u_int lsrr_count = (option.get_ptr() - 4) / IPOPT_LSRR_DATALEN;
 
-    option_string.add("lsrr %u(%u)",
+    option_string.add((char*)"lsrr %u(%u)",
         option.get_ptr(),
         lsrr_count);
 
@@ -634,7 +634,7 @@ c_string ip_option_handler(c_ipopt_lsrr option)
     {
         string ip_string[16];
 
-        option_string.add(" {%s}",
+        option_string.add((char*)" {%s}",
             conv_ip_str(ip_string, option.get_ip(i))); 
     }
 
@@ -646,7 +646,7 @@ c_string ip_option_handler(c_ipopt_xsec option)
 {
     c_string option_string;
 
-    option_string.add("xsec %u",
+    option_string.add((char*)"xsec %u",
         option.get_asiac());
  
     if(option.get_len() > IPOPT_XSEC_LEN)
@@ -656,39 +656,39 @@ c_string ip_option_handler(c_ipopt_xsec option)
  
         do 
         {
-            option_string.add(" {");
+            option_string.add((char*)" {");
 
             coma_flag=0;
 
             if(option.get_flags(i) & 128)
             {
-                if(coma_flag) option_string.add(", ");
-                option_string.add("GENSER");
+                if(coma_flag) option_string.add((char*)", ");
+                option_string.add((char*)"GENSER");
                 coma_flag = true;
             }
 
             if(option.get_flags(i) & 64)
             {
-                if(coma_flag) option_string.add(", ");
-                option_string.add("SIOP");
+                if(coma_flag) option_string.add((char*)", ");
+                option_string.add((char*)"SIOP");
                 coma_flag = true;
             }
 
             if(option.get_flags(i) & 32)
             {
-                if(coma_flag) option_string.add(", ");
-                option_string.add("DSCCS-SPINTCOM");
+                if(coma_flag) option_string.add((char*)", ");
+                option_string.add((char*)"DSCCS-SPINTCOM");
                 coma_flag = true;
             }
 
             if(option.get_flags(i) & 16)
             {
-                if(coma_flag) option_string.add(", ");
-                option_string.add("DSCCS-CRITICOM");
+                if(coma_flag) option_string.add((char*)", ");
+                option_string.add((char*)"DSCCS-CRITICOM");
                 coma_flag = true;
             }
 
-            option_string.add("}");
+            option_string.add((char*)"}");
  
             i++;
         }
@@ -703,7 +703,7 @@ c_string ip_option_handler(c_ipopt_satid option)
 {
     c_string option_string;
 
-    option_string.add("satid %u",
+    option_string.add((char*)"satid %u",
         option.get_id());
 
     return option_string;
@@ -716,7 +716,7 @@ c_string ip_option_handler(c_ipopt_ssrr option)
 
     u_int ssrr_count = (option.get_ptr() - 4) / IPOPT_SSRR_DATALEN;
 
-    option_string.add("ssrr %u(%u)",
+    option_string.add((char*)"ssrr %u(%u)",
         option.get_ptr(),
         ssrr_count);
 
@@ -724,7 +724,7 @@ c_string ip_option_handler(c_ipopt_ssrr option)
     {
         string ip_string[16];
 
-        option_string.add(" {%s}",
+        option_string.add((char*)" {%s}",
             conv_ip_str(ip_string, option.get_ip(i)));
     }
 
@@ -736,23 +736,23 @@ c_string ip_option_handler(c_ipopt_generic option)
 {
     c_string option_string;
 
-    option_string.add("unknown %u %u(%u) {",
+    option_string.add((char*)"unknown %u %u(%u) {",
         option.get_code(),
         option.get_len(),
         option.get_len() - 2);
 
     for(u_int i = 0; i < (u_int)(option.get_len() - 2); i ++)
     {
-        option_string.add("0x%02X",
+        option_string.add((char*)"0x%02X",
             option.get_data() + i);
 
         if(i + 1 < (u_int)(option.get_len() - 2))
         {       
-            option_string.add(" ");
+            option_string.add((char*)" ");
         }     
     }
 
-    option_string.add("}"); 
+    option_string.add((char*)"}"); 
 
     return option_string;
 }

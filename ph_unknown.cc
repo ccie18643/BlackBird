@@ -43,7 +43,7 @@ c_string unknown_packet_handler(c_packet_info packet_info)
 {
     c_string output_string;
 
-    output_string.add("UNKNOWN\tPLEN %u\n",
+    output_string.add((char*)"UNKNOWN\tPLEN %u\n",
         packet_info.packet_len);
 
 //    output_string += print_hex_data(packet_info.packet,

@@ -533,7 +533,7 @@ bool c_string::operator==(const string* str)
 
 c_string print_line()
 {
-    return c_string("----------------------------------------"
+    return c_string((char*)"----------------------------------------"
         "---------------------------------------\n");
 }
 
@@ -555,7 +555,7 @@ c_string print_options_string(c_string opt_cstr)
     u_int options_string_pos = 0;
     u_int last_break_pos = 0;
 
-    output_string.add("\n\tOPTS ");
+    output_string.add((char*)"\n\tOPTS ");
 
     while(options_string[options_string_pos])
     {
@@ -565,11 +565,11 @@ c_string print_options_string(c_string opt_cstr)
 
             if(cursor_pos + options_string_pos - last_break_pos + 1 > 79)
             {
-                output_string.add("\n\t    ");
+                output_string.add((char*)"\n\t    ");
                 cursor_pos = 13;
             }
 
-            output_string.add("%s]", options_string + last_break_pos);
+            output_string.add((char*)"%s]", options_string + last_break_pos);
             cursor_pos += options_string_pos - last_break_pos + 1;
             last_break_pos = options_string_pos + 1;
         }
@@ -581,11 +581,11 @@ c_string print_options_string(c_string opt_cstr)
 
             if(cursor_pos + options_string_pos - last_break_pos + 1 > 79)
             {
-                output_string.add("\n\t    ");
+                output_string.add((char*)"\n\t    ");
                 cursor_pos = 13;
             }
 
-            output_string.add("%s,", options_string + last_break_pos);
+            output_string.add((char*)"%s,", options_string + last_break_pos);
             cursor_pos += options_string_pos - last_break_pos + 1;
             last_break_pos = options_string_pos + 1;
         }
@@ -599,11 +599,11 @@ c_string print_options_string(c_string opt_cstr)
 
                 if(cursor_pos + options_string_pos - last_break_pos + 1 > 79)
                 {
-                    output_string.add("\n\t    ");
+                    output_string.add((char*)"\n\t    ");
                     cursor_pos = 13;
                 }
             
-                output_string.add("%s}", options_string + last_break_pos);
+                output_string.add((char*)"%s}", options_string + last_break_pos);
                 cursor_pos += options_string_pos - last_break_pos + 1;
                 last_break_pos = options_string_pos + 1;
             }
@@ -612,7 +612,7 @@ c_string print_options_string(c_string opt_cstr)
         options_string_pos++;
     }
 
-    output_string.add("%s", options_string + last_break_pos);
+    output_string.add((char*)"%s", options_string + last_break_pos);
 
     return output_string;
 }

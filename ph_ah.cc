@@ -45,9 +45,9 @@ c_string ah_packet_handler(c_packet_info packet_info)
 
     c_ah_header header(packet_info.packet);
 
-    output_string.add("AH\tPROTO %u (");
+    output_string.add((char*)"AH\tPROTO %u (");
     output_string += print_ip_proto(header.get_proto());
-    output_string.add(")  HLEN %u  ALEN %u  HASH ",
+    output_string.add((char*)")  HLEN %u  ALEN %u  HASH ",
         header.get_hlen(),
         packet_info.ah_authdata_len);
 
@@ -59,11 +59,11 @@ c_string ah_packet_handler(c_packet_info packet_info)
     }
 
 
-    output_string.add("  SPI %u  SEQ %u",
+    output_string.add((char*)"  SPI %u  SEQ %u",
         header.get_spi(),
         header.get_seq());
 
-    output_string.add("\n");
+    output_string.add((char*)"\n");
 
     output_string += debug(packet_info);
 

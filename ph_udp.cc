@@ -45,8 +45,8 @@ c_string udp_packet_handler(c_packet_info packet_info)
 
     c_udp_header header(packet_info.packet);
 
-    output_string.add("UDP\t"); 
-    output_string.add("SPORT %u  DPORT %u  CKSUM %u ",
+    output_string.add((char*)"UDP\t"); 
+    output_string.add((char*)"SPORT %u  DPORT %u  CKSUM %u ",
         header.get_sport(),
         header.get_dport(),
         header.get_cksum());
@@ -68,24 +68,24 @@ c_string udp_packet_handler(c_packet_info packet_info)
 
     if(header.get_cksum() == 0)
     {
-        output_string.add("(NONE)");
+        output_string.add((char*)"(NONE)");
     }
     else 
     {
         if(!cksum(packet_info.packet, packet_info.packet_len, pseudo_header))
         {
-            output_string.add("(OK)");
+            output_string.add((char*)"(OK)");
         }
         else
         {
-            output_string.add("(BAD)");
+            output_string.add((char*)"(BAD)");
         }
     }
 
-    output_string.add("\n");
+    output_string.add((char*)"\n");
 
 
-    output_string.add("\tHLEN %u  PLEN %u  DLEN %u\n",
+    output_string.add((char*)"\tHLEN %u  PLEN %u  DLEN %u\n",
         UDP_HEADER_LEN,
         header.get_len(),
         header.get_len() - UDP_HEADER_LEN);

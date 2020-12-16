@@ -44,22 +44,22 @@ c_string cdp_packet_handler(c_packet_info packet_info)
 
     c_cdp_header header(packet_info.packet);
 
-    output_string.add("CDP\t"); 
-    output_string.add("VER %u  TTL %u  CKSUM %u ",
+    output_string.add((char*)"CDP\t"); 
+    output_string.add((char*)"VER %u  TTL %u  CKSUM %u ",
         header.get_ver(),
         header.get_ttl(),
         header.get_cksum());
 
     if(!cksum(packet_info.packet, packet_info.packet_len))
     {
-        output_string.add("(OK)");
+        output_string.add((char*)"(OK)");
     }
     else
     {
-        output_string.add("(BAD)");
+        output_string.add((char*)"(BAD)");
     }
 
-    output_string.add("\n");
+    output_string.add((char*)"\n");
 
     byte* cdp_data = packet_info.packet + CDP_HEADER_LEN;
 
@@ -67,7 +67,7 @@ c_string cdp_packet_handler(c_packet_info packet_info)
     {
         c_cdp_dheader dheader(cdp_data);
 
-        output_string.add_hex("\tTYPE 0x%02X%02X (",
+        output_string.add_hex((char*)"\tTYPE 0x%02X%02X (",
             dheader.get_type());
 
         switch(dheader.get_type()) {
@@ -105,7 +105,7 @@ c_string cdp_packet_handler(c_packet_info packet_info)
 
         }
 
-        output_string.add(")\t  LEN %u  ",
+        output_string.add((char*)")\t  LEN %u  ",
             dheader.get_len());
 
 

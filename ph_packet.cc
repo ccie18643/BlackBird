@@ -62,7 +62,7 @@ void packet_handler(byte* linklayer, struct pcap_pkthdr* pkthdr, byte* packet)
     captured_packet_info.next_packet = packet;
     captured_packet_info.next_packet_len = pkthdr->caplen;
 
-    switch((int)linklayer)
+    switch(*((int*)linklayer))
     {
 	case DLT_EN10MB:
             captured_packet_info.next_packet_type = get_ether_type(packet); 
@@ -309,7 +309,7 @@ c_string print_hex_data(byte* data, u_int data_len, bool newline, c_string head)
          
          if(newline)
         {
-            output_string.add("\n");
+            output_string.add((char*)"\n");
         }
     
         for(u_int i = 0; i < data_len; i++)
@@ -320,14 +320,14 @@ c_string print_hex_data(byte* data, u_int data_len, bool newline, c_string head)
             }
             else if((!(i & 15)) && newline)
             {
-                output_string.add("    \t");
+                output_string.add((char*)"    \t");
             }
 
-            output_string.add("%02X ", *(data + i));
+            output_string.add((char*)"%02X ", *(data + i));
 
             if((*(data + i) < 32) || (*(data + i) > 126))
             { 
-                ascii_string.add(".");
+                ascii_string.add((char*)".");
             }
             else 
             {
@@ -336,34 +336,34 @@ c_string print_hex_data(byte* data, u_int data_len, bool newline, c_string head)
 
             if((!((i + 1) & 15)) && (i + 1) < data_len)
             {
-	        output_string.add("   |");
+	        output_string.add((char*)"   |");
 	        output_string.add(ascii_string);
-                output_string.add("|");
+                output_string.add((char*)"|");
 	        ascii_string.clear();
             
-                output_string.add("\n");
+                output_string.add((char*)"\n");
             }
         }
 
-        for (int i = 0; i < int(16 - data_len & 15); i++)
+        for (int i = 0; i < int((16 - data_len) & 15); i++)
         {
-            output_string.add("   ");
+            output_string.add((char*)"   ");
         }
   
-        output_string.add("   |");
+        output_string.add((char*)"   |");
         output_string.add(ascii_string);
         ascii_string.clear();
 
-        for (int i = 0; i < int(16 - data_len & 15); i++)
+        for (int i = 0; i < int((16 - data_len) & 15); i++)
         {
-            output_string.add(" ");
+            output_string.add((char*)" ");
         }
 
-        output_string.add("|");
+        output_string.add((char*)"|");
 
         if(newline)
         {
-            output_string.add("\n");
+            output_string.add((char*)"\n");
         }
     }
 
@@ -377,17 +377,17 @@ c_string debug(c_packet_info packet_info)
 
     if(debug_mode)
     {
-        output_string.add("\n");
+        output_string.add((char*)"\n");
 
-        output_string.add("<debug>\tpacket_info.packet_len = %u\n",
+        output_string.add((char*)"<debug>\tpacket_info.packet_len = %u\n",
             packet_info.packet_len);
 
-        output_string.add("\tpacket_info.next_packet_len = %u\n",
+        output_string.add((char*)"\tpacket_info.next_packet_len = %u\n",
             packet_info.next_packet_len);
     
 
     output_string += print_hex_data(packet_info.packet,
-        packet_info.packet_len, true, "\t");
+        packet_info.packet_len, true, (char*)"\t");
 
     }
 

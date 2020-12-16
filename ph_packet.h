@@ -78,6 +78,6 @@ c_string unknown_packet_handler(c_packet_info);
 c_string missing_packet_handler(c_packet_info);
 
 c_string print_hex_data(byte*, u_int, bool = true,
-    c_string = c_string("    \t"));
+    c_string = c_string((char*)"    \t"));
 
 c_string debug(c_packet_info);

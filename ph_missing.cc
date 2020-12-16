@@ -42,7 +42,7 @@ c_string missing_packet_handler(c_packet_info packet_info)
 {
     c_string output_string;
 
-    output_string.add("<debug>\tpacket_info.packet_type = %u\n", packet_info.packet_type);
+    output_string.add((char*)"<debug>\tpacket_info.packet_type = %u\n", packet_info.packet_type);
 
     output_string += "*** missing packet handler ***\n";
 

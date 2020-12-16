@@ -47,22 +47,22 @@ c_string ether_packet_handler(c_packet_info packet_info)
 
     c_ether_header header(packet_info.packet);
 
-    output_string.add("ETHER\t");
+    output_string.add((char*)"ETHER\t");
 
     string addr_str[32];
 
-    output_string.add("SRC %s  ",
+    output_string.add((char*)"SRC %s  ",
         conv_ether_str(addr_str, header.get_src()));
 
-    output_string.add("DST %s  ",
+    output_string.add((char*)"DST %s  ",
         conv_ether_str(addr_str, header.get_dst()));
 
-    output_string.add_hex("TYPE 0x%02X%02X (",
+    output_string.add_hex((char*)"TYPE 0x%02X%02X (",
         header.get_type());
 
     output_string += print_ether_type(header.get_type());
 
-    output_string.add(")\n");
+    output_string.add((char*)")\n");
 
     output_string += debug(packet_info);
 

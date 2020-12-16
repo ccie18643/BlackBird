@@ -75,7 +75,7 @@ void c_tcp_packet::add_data(byte* data, u_int data_len)
 {
     if(header_len & 3)
     {
-        add_opt_nop(4 - header_len & 3);
+        add_opt_nop((4 - header_len) & 3);
     }
  
     memcpy(packet + header_len, data, data_len);

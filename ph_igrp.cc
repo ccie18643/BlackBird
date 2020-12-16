@@ -46,9 +46,9 @@ c_string igrp_packet_handler(c_packet_info packet_info)
 
     c_igrp_header header(packet_info.packet);
 
-    output_string.add("IGRP\t");
+    output_string.add((char*)"IGRP\t");
 
-    output_string.add("VER %u  OPCODE %u ",
+    output_string.add((char*)"VER %u  OPCODE %u ",
         header.get_ver(),
         header.get_opcode());
 
@@ -68,7 +68,7 @@ c_string igrp_packet_handler(c_packet_info packet_info)
     }
 
 
-    output_string.add("  EDITION %u  AS %u\n\tINTERIOR %u  SYSTEM %u  EXTERIOR %u  CKSUM %u ",
+    output_string.add((char*)"  EDITION %u  AS %u\n\tINTERIOR %u  SYSTEM %u  EXTERIOR %u  CKSUM %u ",
         header.get_edition(),
         header.get_as(),
         header.get_interior(),
@@ -78,11 +78,11 @@ c_string igrp_packet_handler(c_packet_info packet_info)
 
     if(!cksum(packet_info.packet, packet_info.packet_len))
     {
-        output_string.add("(OK)");
+        output_string.add((char*)"(OK)");
     }
     else
     {
-        output_string.add("(BAD)");
+        output_string.add((char*)"(BAD)");
     }
 
 
@@ -97,12 +97,12 @@ c_string igrp_packet_handler(c_packet_info packet_info)
 
             conv_ip_str(net_string, update.get_intnet());
 
-            output_string.add("\n\n\tINTERIOR NETWORK %s  HOPCOUNT %u\n",
+            output_string.add((char*)"\n\n\tINTERIOR NETWORK %s  HOPCOUNT %u\n",
                 net_string,
                 update.get_hopcount());
 
             output_string.add(
-                "\tBW %u (%u Kbit)  DELAY %u (%u usec)  MTU %u  REL %u",
+                (char*)"\tBW %u (%u Kbit)  DELAY %u (%u usec)  MTU %u  REL %u",
                 update.get_bandwidth(),
                 10000000 / update.get_bandwidth(),
                 update.get_delay(),
@@ -122,12 +122,12 @@ c_string igrp_packet_handler(c_packet_info packet_info)
 
             conv_ip_str(net_string, update.get_net());
 
-            output_string.add("\n\n\tSYSTEM NETWORK %s  HOPCOUNT %u\n",
+            output_string.add((char*)"\n\n\tSYSTEM NETWORK %s  HOPCOUNT %u\n",
                 net_string,
                 update.get_hopcount());
 
             output_string.add(
-                "\tBW %u (%u Kbit)  DELAY %u (%u usec)  MTU %u  REL %u",
+                (char*)"\tBW %u (%u Kbit)  DELAY %u (%u usec)  MTU %u  REL %u",
                 update.get_bandwidth(),
                 10000000 / update.get_bandwidth(),
                 update.get_delay(),
@@ -148,12 +148,12 @@ c_string igrp_packet_handler(c_packet_info packet_info)
 
             conv_ip_str(net_string, update.get_net());
 
-            output_string.add("\n\n\tEXTERIOR NETWORK %s  HOPCOUNT %u\n",
+            output_string.add((char*)"\n\n\tEXTERIOR NETWORK %s  HOPCOUNT %u\n",
                 net_string,
                 update.get_hopcount());
 
             output_string.add(
-                "\tBW %u (%u Kbit)  DELAY %u (%u usec)  MTU %u  REL %u",
+                (char*)"\tBW %u (%u Kbit)  DELAY %u (%u usec)  MTU %u  REL %u",
                 update.get_bandwidth(),
                 10000000 / update.get_bandwidth(),
                 update.get_delay(),
@@ -163,7 +163,7 @@ c_string igrp_packet_handler(c_packet_info packet_info)
         }
     }
 
-    output_string.add("\n");
+    output_string.add((char*)"\n");
 
     output_string += debug(packet_info);
 

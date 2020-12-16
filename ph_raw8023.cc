@@ -45,20 +45,20 @@ c_string raw8023_packet_handler(c_packet_info packet_info)
 
     c_raw8023_header header(packet_info.packet);
 
-    output_string.add("802.3\t");
+    output_string.add((char*)"802.3\t");
 
     string addr_str[32];
          
-    output_string.add("SRC %s  ",
+    output_string.add((char*)"SRC %s  ",
         conv_raw8023_str(addr_str, header.get_src()));
                       
-    output_string.add("DST %s  ",
+    output_string.add((char*)"DST %s  ",
         conv_raw8023_str(addr_str, header.get_dst()));
 
-    output_string.add("DLEN %u",
+    output_string.add((char*)"DLEN %u",
         header.get_dlen());
 
-    output_string.add("\n");
+    output_string.add((char*)"\n");
 
     output_string += debug(packet_info);
 

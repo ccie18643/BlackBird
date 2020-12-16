@@ -48,66 +48,66 @@ c_string llc_u_packet_handler(c_packet_info packet_info)
 
     c_llc_u_header header(packet_info.packet);
 
-    output_string.add("LLC U\t");
+    output_string.add((char*)"LLC U\t");
 
-    output_string.add_hex("DSAP 0x%02X ",
+    output_string.add_hex((char*)"DSAP 0x%02X ",
         header.get_dsap());
  
-    output_string.add_bin("(%u%u%u%u%u%u%u|%u) (",
+    output_string.add_bin((char*)"(%u%u%u%u%u%u%u|%u) (",
         header.get_dsap());
 
     output_string += print_sap(header.get_dsap());
 
     if(header.get_dsap_ig())
     {
-        output_string.add(", Group Address");
+        output_string.add((char*)", Group Address");
     }
     else
     {
-        output_string.add(", Individual Address");
+        output_string.add((char*)", Individual Address");
     }
 
-    output_string.add(")\n");
+    output_string.add((char*)")\n");
 
-    output_string.add_hex("\tSSAP 0x%02X ",
+    output_string.add_hex((char*)"\tSSAP 0x%02X ",
         header.get_ssap());
  
-    output_string.add_bin("(%u%u%u%u%u%u%u|%u) (",
+    output_string.add_bin((char*)"(%u%u%u%u%u%u%u|%u) (",
         header.get_ssap());
 
     output_string += print_sap(header.get_ssap());
 
     if(header.get_ssap_cr())
     {
-        output_string.add(", Response");
+        output_string.add((char*)", Response");
     }
     else
     {
-        output_string.add(", Command");
+        output_string.add((char*)", Command");
     }
 
-    output_string.add(")\n");
+    output_string.add((char*)")\n");
 
-    output_string.add("\tCTRL ");
+    output_string.add((char*)"\tCTRL ");
 
-    output_string.add_hex("0x%02X ",
+    output_string.add_hex((char*)"0x%02X ",
         header.get_ctrl());
 
-    output_string.add_bin("(%u%u%u|%u|%u%u|%u%u) ",
+    output_string.add_bin((char*)"(%u%u%u|%u|%u%u|%u%u) ",
             header.get_ctrl());
 
-    output_string.add("(U-type");
+    output_string.add((char*)"(U-type");
 
 
     if(header.get_ctrl_pf())
     {
         if(header.get_ssap_cr())
         {
-            output_string.add(", Finall");
+            output_string.add((char*)", Finall");
         }
         else
         {
-            output_string.add(", Poll");
+            output_string.add((char*)", Poll");
         }
     }
 
@@ -115,41 +115,41 @@ c_string llc_u_packet_handler(c_packet_info packet_info)
     switch(header.get_ctrl_m())
     {
         case LLC_U_M_UI:
-            output_string.add(", UI");
+            output_string.add((char*)", UI");
             break;
 
         case LLC_U_M_SABME: 
-            output_string.add(", SABME");
+            output_string.add((char*)", SABME");
             break;
  
         case LLC_U_M_DISC: 
-            output_string.add(", DISC");
+            output_string.add((char*)", DISC");
             break;
  
         case LLC_U_M_UA: 
-            output_string.add(", UA");
+            output_string.add((char*)", UA");
             break;
  
         case LLC_U_M_DM: 
-            output_string.add(", DM");
+            output_string.add((char*)", DM");
             break;
  
         case LLC_U_M_FRMR:
-            output_string.add(", FRMR");
+            output_string.add((char*)", FRMR");
             break;
  
         case LLC_U_M_XID:
-            output_string.add(", XID");
+            output_string.add((char*)", XID");
             break;
  
         case LLC_U_M_TEST:      
-            output_string.add(", TEST");
+            output_string.add((char*)", TEST");
             break;
     }
     
-    output_string.add(")");
+    output_string.add((char*)")");
 
-    output_string.add("\n");
+    output_string.add((char*)"\n");
 
     output_string += debug(packet_info);
 

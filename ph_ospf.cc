@@ -56,38 +56,38 @@ c_string ospf_packet_handler(c_packet_info packet_info)
     bool lls_present = false;
     bool md5_present = false;
 
-    output_string.add("OSPF\t"); 
+    output_string.add((char*)"OSPF\t"); 
 
-    output_string.add("TYPE %u (",
+    output_string.add((char*)"TYPE %u (",
         header.get_type());
 
     switch(header.get_type())
     {
         case OSPF_TYPE_HELLO_PACKET:
-            output_string.add("Hello");
+            output_string.add((char*)"Hello");
             break;
 
         case OSPF_TYPE_DD_PACKET: 
-            output_string.add("DD");
+            output_string.add((char*)"DD");
             break;
 
         case OSPF_TYPE_LSR_PACKET: 
-            output_string.add("LSR");
+            output_string.add((char*)"LSR");
             break;
 
         case OSPF_TYPE_LSU_PACKET: 
-            output_string.add("LSU");
+            output_string.add((char*)"LSU");
             break;
 
         case OSPF_TYPE_LSA_PACKET: 
-            output_string.add("LSA");
+            output_string.add((char*)"LSA");
             break;
 
         default: 
-            output_string.add("Unknown");
+            output_string.add((char*)"Unknown");
     };
 
-    output_string.add(")  ");
+    output_string.add((char*)")  ");
 
 
     string router_id_string[16];
@@ -96,12 +96,12 @@ c_string ospf_packet_handler(c_packet_info packet_info)
     conv_ip_str(router_id_string, header.get_routerid());
     conv_ip_str(area_id_string, header.get_areaid());
 
-    output_string.add("ROUTER ID %s  AREA ID %s\n",
+    output_string.add((char*)"ROUTER ID %s  AREA ID %s\n",
         router_id_string,
         area_id_string);
 
 
-    output_string.add("\tVER %u  PLEN %u  (TPLEN %u)  CKSUM %u ",
+    output_string.add((char*)"\tVER %u  PLEN %u  (TPLEN %u)  CKSUM %u ",
         header.get_ver(),
         header.get_plen(),
 	packet_info.packet_len,
@@ -110,47 +110,47 @@ c_string ospf_packet_handler(c_packet_info packet_info)
 
     if(header.get_authtype() == OSPF_AUTHTYPE_CRYPTO)
     {
-        output_string.add("(NONE)");
+        output_string.add((char*)"(NONE)");
     }
     else
     {
         if(!cksum(packet_info.packet, header.get_plen()))
         {
-            output_string.add("(OK)");
+            output_string.add((char*)"(OK)");
         }
         else
         {
-            output_string.add("(BAD)");
+            output_string.add((char*)"(BAD)");
         }
     }
 
-    output_string.add("  AUTH TYPE %u (",
+    output_string.add((char*)"  AUTH TYPE %u (",
         header.get_authtype());
 
     switch(header.get_authtype())
     {
         case OSPF_AUTHTYPE_NULL:
-            output_string.add("Null");
+            output_string.add((char*)"Null");
             break;
     
         case OSPF_AUTHTYPE_PASSWORD:
-            output_string.add("Password");
+            output_string.add((char*)"Password");
             break;
  
         case OSPF_AUTHTYPE_CRYPTO:
 	    md5_present = true;
-            output_string.add("Crypto");
+            output_string.add((char*)"Crypto");
             break;
 
 	default:
-            output_string.add("Unknown");
+            output_string.add((char*)"Unknown");
     }
 
-    output_string.add(")\n");
+    output_string.add((char*)")\n");
 
     if(header.get_authtype() == OSPF_AUTHTYPE_PASSWORD)
     {
-        output_string.add("\tPASSWORD %s\n",
+        output_string.add((char*)"\tPASSWORD %s\n",
 	    header.get_password());
     }
 
@@ -158,7 +158,7 @@ c_string ospf_packet_handler(c_packet_info packet_info)
 
     if(header.get_authtype() == OSPF_AUTHTYPE_CRYPTO)
     {
-        output_string.add("\tAUTH KEY ID %u  AUTH DATA LEN %u  AUTH SEQ %u\n",
+        output_string.add((char*)"\tAUTH KEY ID %u  AUTH DATA LEN %u  AUTH SEQ %u\n",
             header.get_keyid(),
             header.get_adlen(),
             header.get_cryptoseq());
@@ -174,44 +174,44 @@ c_string ospf_packet_handler(c_packet_info packet_info)
  
         conv_ip_str(netmask_string, hello_packet.get_netmask());
 
-        output_string.add("\tNETMASK %s  HELLO INT %u  ",
+        output_string.add((char*)"\tNETMASK %s  HELLO INT %u  ",
             netmask_string,
             hello_packet.get_hellointerval());
 
 
-        output_string.add_hex("OPTIONS 0x%02X [ ",
+        output_string.add_hex((char*)"OPTIONS 0x%02X [ ",
             hello_packet.get_options());
 
  
         if(hello_packet.get_option_dc())
         {
-            output_string.add("DC ");
+            output_string.add((char*)"DC ");
         }
 
         if(hello_packet.get_option_l())
         {
             lls_present = true;
-            output_string.add("L ");
+            output_string.add((char*)"L ");
         }
 
         if(hello_packet.get_option_np())
         {
-            output_string.add("N/P ");
+            output_string.add((char*)"N/P ");
         }
 
         if(hello_packet.get_option_mc())
         {
-            output_string.add("MC ");
+            output_string.add((char*)"MC ");
         }
 
         if(hello_packet.get_option_e())
         {
-            output_string.add("E ");
+            output_string.add((char*)"E ");
         }
 
-        output_string.add("]");
+        output_string.add((char*)"]");
 
-        output_string.add("\n");
+        output_string.add((char*)"\n");
 
 
         string dr_string[16];
@@ -220,7 +220,7 @@ c_string ospf_packet_handler(c_packet_info packet_info)
         conv_ip_str(dr_string, hello_packet.get_dr());
         conv_ip_str(bdr_string, hello_packet.get_bdr());
 
-        output_string.add("\tPRIORITY %u  DEAD INT %u  DR %s  BDR %s\n",
+        output_string.add((char*)"\tPRIORITY %u  DEAD INT %u  DR %s  BDR %s\n",
             hello_packet.get_priority(),
             hello_packet.get_deadinterval(),
             dr_string,
@@ -235,7 +235,7 @@ c_string ospf_packet_handler(c_packet_info packet_info)
             string neighbor_string[16];
             conv_ip_str(neighbor_string, hello_packet.get_neighbor(i));
 
-            output_string.add("\tNEIGHBOR %u - %s\n",
+            output_string.add((char*)"\tNEIGHBOR %u - %s\n",
                 i,
                 neighbor_string);
         }
@@ -247,28 +247,28 @@ c_string ospf_packet_handler(c_packet_info packet_info)
     {
         c_ospf_dd_packet dd_packet(packet_info.packet + OSPF_HEADER_LEN); 
 
-        output_string.add("\tMTU %u  ",
+        output_string.add((char*)"\tMTU %u  ",
             dd_packet.get_mtu());
 
-        output_string.add_hex("OPTIONS 0x%02X%02X [ ",
+        output_string.add_hex((char*)"OPTIONS 0x%02X%02X [ ",
             dd_packet.get_options());
 
         if(dd_packet.get_option_i())   
         {
-            output_string.add("I ");
+            output_string.add((char*)"I ");
         }
 
         if(dd_packet.get_option_m())
         {
-            output_string.add("M ");
+            output_string.add((char*)"M ");
         }
 
         if(dd_packet.get_option_ms())
         {
-            output_string.add("MS ");
+            output_string.add((char*)"MS ");
         }
 
-        output_string.add("]  SEQ %u\n",
+        output_string.add((char*)"]  SEQ %u\n",
             dd_packet.get_seq());
 
         u_int lsa_offset = OSPF_HEADER_LEN + OSPF_DD_PACKET_LEN;
@@ -293,49 +293,49 @@ c_string ospf_packet_handler(c_packet_info packet_info)
         { 
             c_ospf_lsr_packet lsr_packet(packet_info.packet + lsr_offset);
 
-            output_string.add("\nLSA %u\tTYPE %u (",
+            output_string.add((char*)"\nLSA %u\tTYPE %u (",
                 lsr_packet.get_type(),
                 lsr_packet.get_type());
           
             switch(lsr_packet.get_type())
             {
                 case OSPF_LSA_HEADER_TYPE_1:
-                    output_string.add("Router");
+                    output_string.add((char*)"Router");
                     break;
 
                 case OSPF_LSA_HEADER_TYPE_2:
-                    output_string.add("Network");
+                    output_string.add((char*)"Network");
                     break;
 
                 case OSPF_LSA_HEADER_TYPE_3:
-                    output_string.add("Summary IP network");
+                    output_string.add((char*)"Summary IP network");
                     break;
 
                 case OSPF_LSA_HEADER_TYPE_4:
-                    output_string.add("Summary ASBR");
+                    output_string.add((char*)"Summary ASBR");
                     break;
 
                 case OSPF_LSA_HEADER_TYPE_5:
-                    output_string.add("AS External");
+                    output_string.add((char*)"AS External");
                     break;
 
                 case OSPF_LSA_HEADER_TYPE_7:
-                    output_string.add("NSSA");
+                    output_string.add((char*)"NSSA");
                     break;
 
                 default:
-                    output_string.add("Unknown");
+                    output_string.add((char*)"Unknown");
             }
 
  
-            output_string.add(")  LS ID %u  ",
+            output_string.add((char*)")  LS ID %u  ",
                 lsr_packet.get_id());
 
             string advrtr_string[16];
 
             conv_ip_str(advrtr_string, lsr_packet.get_advrtr());
 
-            output_string.add("ADV RTR %s\n",
+            output_string.add((char*)"ADV RTR %s\n",
                 advrtr_string);
 
             lsr_offset += OSPF_LSR_PACKET_LEN;
@@ -347,7 +347,7 @@ c_string ospf_packet_handler(c_packet_info packet_info)
     {
         c_ospf_lsu_packet lsu_packet(packet_info.packet + OSPF_HEADER_LEN);
 
-        output_string.add("\tLSA COUNT %u\n",
+        output_string.add((char*)"\tLSA COUNT %u\n",
             lsu_packet.get_lcount());
 
         u_int lsa_offset = OSPF_HEADER_LEN + OSPF_LSU_PACKET_LEN;     
@@ -371,35 +371,35 @@ c_string ospf_packet_handler(c_packet_info packet_info)
                 c_ospf_lsa_1_body lsa_1_body(packet_info.packet + lsa_offset
                     + OSPF_LSA_HEADER_LEN);
 
-                output_string.add_hex("  OPTIONS 0x%02X [ ",
+                output_string.add_hex((char*)"  OPTIONS 0x%02X [ ",
                     lsa_1_body.get_flags()); 
 
                 if(lsa_1_body.get_flag_v())
                 {
-                    output_string.add("V ");  
+                    output_string.add((char*)"V ");  
                 }
 
                 if(lsa_1_body.get_flag_e())
                 {
-                    output_string.add("E ");
+                    output_string.add((char*)"E ");
                 }
 
                 if(lsa_1_body.get_flag_b())       
                 {
-                    output_string.add("B ");
+                    output_string.add((char*)"B ");
                 }
 
                 if(lsa_1_body.get_flag_w())       
                 {
-                    output_string.add("W ");
+                    output_string.add((char*)"W ");
                 }
 
                 if(lsa_1_body.get_flag_nt())       
                 {
-                    output_string.add("Nt ");
+                    output_string.add((char*)"Nt ");
                 }
 
-                output_string.add("]  LINK COUNT %u\n",
+                output_string.add((char*)"]  LINK COUNT %u\n",
                     lsa_1_body.get_lcount());
 
             
@@ -423,39 +423,39 @@ c_string ospf_packet_handler(c_packet_info packet_info)
                     conv_ip_str(id_string, lsa_1_link.get_id());      
                     conv_ip_str(data_string, lsa_1_link.get_data());
 
-                    output_string.add("ID %s  DATA %s  ",
+                    output_string.add((char*)"ID %s  DATA %s  ",
                         id_string,
                         data_string);
 
-                    output_string.add("TYPE %u (",
+                    output_string.add((char*)"TYPE %u (",
                         lsa_1_link.get_type());
                        
                     switch(lsa_1_link.get_type())      
                     {
                         case OSPF_LSA_1_LINK_TYPE_P2P:
-                            output_string.add("P2P");
+                            output_string.add((char*)"P2P");
                             break;
 
                         case OSPF_LSA_1_LINK_TYPE_TRANSIT:
-                            output_string.add("Transit");
+                            output_string.add((char*)"Transit");
                             break;
 
                         case OSPF_LSA_1_LINK_TYPE_STUB:
-                            output_string.add("Stub");
+                            output_string.add((char*)"Stub");
                             break;
 
                         case OSPF_LSA_1_LINK_TYPE_VIRTUAL:
-                            output_string.add("Virtual");
+                            output_string.add((char*)"Virtual");
                             break;
 
                         default:
-                            output_string.add("Unknown");
+                            output_string.add((char*)"Unknown");
                     } 
  
-                    output_string.add(")  METRIC %u",
+                    output_string.add((char*)")  METRIC %u",
                         lsa_1_link.get_metric());
 
-                    output_string.add("\n");
+                    output_string.add((char*)"\n");
 
 
                     u_int tos_offset = link_offset + OSPF_LSA_1_LINK_LEN;
@@ -486,7 +486,7 @@ c_string ospf_packet_handler(c_packet_info packet_info)
                     c_ospf_lsa_2_link lsa_2_link(packet_info.packet
                         + link_offset);
   
-                    output_string.add("\t");
+                    output_string.add((char*)"\t");
 
                     string netmask_string[16];
                     string attrtr_string[16];
@@ -494,7 +494,7 @@ c_string ospf_packet_handler(c_packet_info packet_info)
                     conv_ip_str(netmask_string, lsa_2_link.get_netmask());
                     conv_ip_str(attrtr_string, lsa_2_link.get_attrtr());
 
-                    output_string.add("NETMASK %s  ATTACHED ROUTER %s\n",
+                    output_string.add((char*)"NETMASK %s  ATTACHED ROUTER %s\n",
                         netmask_string,
                         attrtr_string);
 
@@ -512,7 +512,7 @@ c_string ospf_packet_handler(c_packet_info packet_info)
 
                 conv_ip_str(netmask_string, lsa_3_link.get_netmask());
 
-                output_string.add("  NETMASK %s  METRIC %u\n",
+                output_string.add((char*)"  NETMASK %s  METRIC %u\n",
                     netmask_string,
                     lsa_3_link.get_metric());
 
@@ -525,7 +525,7 @@ c_string ospf_packet_handler(c_packet_info packet_info)
                 c_ospf_lsa_4_body lsa_4_link(packet_info.packet    
                     + lsa_offset + OSPF_LSA_HEADER_LEN);    
 
-                output_string.add("  METRIC %u\n",    
+                output_string.add((char*)"  METRIC %u\n",    
                     lsa_4_link.get_metric());
 
                 /* we dont support TOS fields as they are obsolete */
@@ -540,38 +540,38 @@ c_string ospf_packet_handler(c_packet_info packet_info)
 
                 conv_ip_str(netmask_string, lsa_5_body.get_netmask());  
 
-                output_string.add("  NETMASK %s\n\tTYPE ",
+                output_string.add((char*)"  NETMASK %s\n\tTYPE ",
                     netmask_string);
 
                 if(lsa_5_body.get_type())
                 {
-                    output_string.add("E2");
+                    output_string.add((char*)"E2");
                 }
                 else
                 {
-                    output_string.add("E1");
+                    output_string.add((char*)"E1");
                 }
 
-                output_string.add("  METRIC %u  ",
+                output_string.add((char*)"  METRIC %u  ",
                     lsa_5_body.get_metric());
 
                 string fwdaddr_string[16];
 
                 conv_ip_str(fwdaddr_string, lsa_5_body.get_fwdaddr());  
 
-                output_string.add("FWD ADDR %s  TAG %u\n",
+                output_string.add((char*)"FWD ADDR %s  TAG %u\n",
                     fwdaddr_string,
                     lsa_5_body.get_tag());
             }
 
             else if(lsa_header.get_type() == OSPF_LSA_HEADER_TYPE_7)
             {
-                output_string.add("\n");
+                output_string.add((char*)"\n");
             }
 
             else
             {
-                output_string.add("\n");
+                output_string.add((char*)"\n");
             }
 
 
@@ -602,7 +602,7 @@ c_string ospf_packet_handler(c_packet_info packet_info)
     if(header.get_authtype() == OSPF_AUTHTYPE_CRYPTO)
     {
         output_string += print_hex_data(packet_info.packet
-            + header.get_plen(), 16, true, "MD5\t");
+            + header.get_plen(), 16, true, (char*)"MD5\t");
     }
 
 
@@ -611,28 +611,28 @@ c_string ospf_packet_handler(c_packet_info packet_info)
         c_ospf_lls lls(packet_info.packet + header.get_plen()
             + md5_present * 16);
 
-        output_string.add("\n");
-        output_string.add("LLS\tCKSUM %u ",
+        output_string.add((char*)"\n");
+        output_string.add((char*)"LLS\tCKSUM %u ",
             lls.get_cksum());
 
         if(header.get_authtype() == OSPF_AUTHTYPE_CRYPTO)
         {
-            output_string.add("(NONE)");
+            output_string.add((char*)"(NONE)");
         }
         else if(!cksum(packet_info.packet + header.get_plen()
             + md5_present * 16, lls.get_dlen()))
         {
-            output_string.add("(OK)");
+            output_string.add((char*)"(OK)");
         }
         else
         {
-            output_string.add("(BAD)");
+            output_string.add((char*)"(BAD)");
         }
 
-        output_string.add("  DLEN %u",
+        output_string.add((char*)"  DLEN %u",
             lls.get_dlen());
 
-        output_string.add("\n");
+        output_string.add((char*)"\n");
 
 
         u_int i = 0;
@@ -643,7 +643,7 @@ c_string ospf_packet_handler(c_packet_info packet_info)
                 + OSPF_LLS_LEN + md5_present * 16 + i);
 
 
-            output_string.add("\nTLV\tTYPE %u ",
+            output_string.add((char*)"\nTLV\tTYPE %u ",
                 lls_tlv.get_type());
 
             switch(lls_tlv.get_type())
@@ -654,23 +654,23 @@ c_string ospf_packet_handler(c_packet_info packet_info)
                         + header.get_plen()
                         + OSPF_LLS_LEN + md5_present * 16 + i);
 
-                    output_string.add("(Extended Options)  VLEN %u\n",
+                    output_string.add((char*)"(Extended Options)  VLEN %u\n",
                         lls_tlv.get_vlen());
 
-                    output_string.add_hex("\tOPTIONS 0x%02X%02X%02X%02X [ ",
+                    output_string.add_hex((char*)"\tOPTIONS 0x%02X%02X%02X%02X [ ",
                         lls_tlv_extopt.get_flags());
 
                     if(lls_tlv_extopt.get_flag_rs())
                     {
-                        output_string.add("RS ");
+                        output_string.add((char*)"RS ");
                     }
 
                     if(lls_tlv_extopt.get_flag_lr())
                     {
-                        output_string.add("LR ");
+                        output_string.add((char*)"LR ");
                     }
 
-                    output_string.add("]");
+                    output_string.add((char*)"]");
 
                     break;
                 }
@@ -681,7 +681,7 @@ c_string ospf_packet_handler(c_packet_info packet_info)
                         + header.get_plen()
                         + OSPF_LLS_LEN + md5_present * 16 + i);
 
-                    output_string.add("(Cryptographic Authentication)  "
+                    output_string.add((char*)"(Cryptographic Authentication)  "
                         "VLEN %u\n\tAUTH SEQ %u\n\t",
                         lls_tlv.get_vlen(),
                         lls_tlv_cauth.get_cryptoseq());
@@ -698,7 +698,7 @@ c_string ospf_packet_handler(c_packet_info packet_info)
                     output_string += "(Unknown)";
             }
 
-            output_string.add("\n");
+            output_string.add((char*)"\n");
 
             i += lls_tlv.get_vlen() + OSPF_LLS_TLV_LEN;
         }
@@ -716,73 +716,73 @@ c_string print_ospf_lsa_header(c_ospf_lsa_header lsa_header)
 {
     c_string output_string;
 
-    output_string.add("\nLSA %u\tAGE %u  ",
+    output_string.add((char*)"\nLSA %u\tAGE %u  ",
         lsa_header.get_type(),
         lsa_header.get_age());
 
-    output_string.add_hex("OPTIONS 0x%02X [ ",
+    output_string.add_hex((char*)"OPTIONS 0x%02X [ ",
         lsa_header.get_options());
 
     if(lsa_header.get_option_dc())
     {
-        output_string.add("DC ");
+        output_string.add((char*)"DC ");
     }
 
     if(lsa_header.get_option_l())
     {
-        output_string.add("L ");
+        output_string.add((char*)"L ");
     }
 
     if(lsa_header.get_option_np())
     {
-        output_string.add("N/P ");
+        output_string.add((char*)"N/P ");
     }
 
     if(lsa_header.get_option_mc())
     {
-        output_string.add("MC ");
+        output_string.add((char*)"MC ");
     }
 
     if(lsa_header.get_option_e())
     {
-         output_string.add("E ");
+         output_string.add((char*)"E ");
     }
 
 
-    output_string.add("]  TYPE %u (",
+    output_string.add((char*)"]  TYPE %u (",
         lsa_header.get_type());
 
     switch(lsa_header.get_type())
     {
         case OSPF_LSA_HEADER_TYPE_1:
-            output_string.add("Router");
+            output_string.add((char*)"Router");
             break;
 
         case OSPF_LSA_HEADER_TYPE_2:
-            output_string.add("Network");
+            output_string.add((char*)"Network");
             break;
 
         case OSPF_LSA_HEADER_TYPE_3:
-            output_string.add("Summary IP network");
+            output_string.add((char*)"Summary IP network");
             break;
 
         case OSPF_LSA_HEADER_TYPE_4:
-            output_string.add("Summary ASBR");
+            output_string.add((char*)"Summary ASBR");
             break;
 
         case OSPF_LSA_HEADER_TYPE_5:
-            output_string.add("AS External");
+            output_string.add((char*)"AS External");
             break;
 
         case OSPF_LSA_HEADER_TYPE_7:
-            output_string.add("NSSA");
+            output_string.add((char*)"NSSA");
             break;
 
         default:
-            output_string.add("Unknown");
+            output_string.add((char*)"Unknown");
     }
 
-    output_string.add(")\n");
+    output_string.add((char*)")\n");
 
 
     string id_string[16];
@@ -791,15 +791,15 @@ c_string print_ospf_lsa_header(c_ospf_lsa_header lsa_header)
     conv_ip_str(id_string, lsa_header.get_id());
     conv_ip_str(advrtr_string, lsa_header.get_advrtr());
 
-    output_string.add("\tLS ID %s  ADV RTR %s  SEQ %u\n",
+    output_string.add((char*)"\tLS ID %s  ADV RTR %s  SEQ %u\n",
         id_string,
         advrtr_string,
         lsa_header.get_seq());
 
-    output_string.add("\tCKSUM %u  ",
+    output_string.add((char*)"\tCKSUM %u  ",
         lsa_header.get_cksum());
 
-    output_string.add("LEN %u",
+    output_string.add((char*)"LEN %u",
         lsa_header.get_len());
 
     return output_string;

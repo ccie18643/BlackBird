@@ -46,112 +46,112 @@ c_string gre_packet_handler(c_packet_info packet_info)
 
     c_gre_header header(packet_info.packet);
 
-    output_string.add("GRE\tFLAGS |"); 
+    output_string.add((char*)"GRE\tFLAGS |"); 
 
     if(header.get_flag_cksum())
     {
-        output_string.add("C|");
+        output_string.add((char*)"C|");
     }
     else
     {
-        output_string.add(" |");
+        output_string.add((char*)" |");
     }
 
     if(header.get_flag_routing())
     {
-        output_string.add("R|");
+        output_string.add((char*)"R|");
     }
     else
     {
-        output_string.add(" |");
+        output_string.add((char*)" |");
     }
 
     if(header.get_flag_key())
     {
-        output_string.add("K|");
+        output_string.add((char*)"K|");
     }
     else
     {
-        output_string.add(" |");
+        output_string.add((char*)" |");
     }
 
     if(header.get_flag_seq())
     {
-        output_string.add("S|");
+        output_string.add((char*)"S|");
     }
     else
     {
-        output_string.add(" |");
+        output_string.add((char*)" |");
     }
 
     if(header.get_flag_ssr())
     {
-        output_string.add("s|");
+        output_string.add((char*)"s|");
     }
     else
     {
-        output_string.add(" |");
+        output_string.add((char*)" |");
     }
 
 
-    output_string.add("  RECUR %u  VER %u  ",
+    output_string.add((char*)"  RECUR %u  VER %u  ",
         header.get_recur(),
         header.get_ver());
 
-    output_string.add_hex("TYPE 0x%02X%02X (",
+    output_string.add_hex((char*)"TYPE 0x%02X%02X (",
         header.get_type());
  
     output_string += print_ether_type(header.get_type());
   
-    output_string.add(")");
+    output_string.add((char*)")");
 
 
     if(header.get_flag_cksum() | header.get_flag_routing() | header.get_flag_key()
         | header.get_flag_seq() | header.get_flag_routing())
     {
-        output_string.add("\n\t");
+        output_string.add((char*)"\n\t");
     }
 
     if(header.get_flag_cksum())
     {
-        output_string.add("CKSUM %u ",
+        output_string.add((char*)"CKSUM %u ",
             header.get_cksum()); 
 
         if(!cksum(packet_info.packet, packet_info.packet_len))
         {
-            output_string.add("(OK)");
+            output_string.add((char*)"(OK)");
         }
         else
         {
-            output_string.add("(BAD)");
+            output_string.add((char*)"(BAD)");
         }
 
-        output_string.add("  ");
+        output_string.add((char*)"  ");
     }
 
     if(header.get_flag_routing())
     {
-        output_string.add("OFFSET %u  ",
+        output_string.add((char*)"OFFSET %u  ",
             header.get_offset());
     }
 
     if(header.get_flag_key())
     {
-        output_string.add("KEY %u  ",
+        output_string.add((char*)"KEY %u  ",
             header.get_key());
     }
 
     if(header.get_flag_seq())
     {
-        output_string.add("SEQ %u  ",
+        output_string.add((char*)"SEQ %u  ",
             header.get_offset());
     }
 
-    output_string.add("\n");
+    output_string.add((char*)"\n");
 
     if(header.get_flag_routing())
     {
-        output_string.add("\n");
+        output_string.add((char*)"\n");
 
         /* missing SRR handler here */
     }

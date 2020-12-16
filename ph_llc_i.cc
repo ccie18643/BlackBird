@@ -49,55 +49,55 @@ c_string llc_i_packet_handler(c_packet_info packet_info)
 
     c_llc_i_header header(packet_info.packet);
 
-    output_string.add("LLC I\t");
+    output_string.add((char*)"LLC I\t");
 
-    output_string.add_hex("DSAP 0x%02X ",
+    output_string.add_hex((char*)"DSAP 0x%02X ",
         header.get_dsap());
 
-    output_string.add_bin("(%u%u%u%u%u%u%u|%u) (",
+    output_string.add_bin((char*)"(%u%u%u%u%u%u%u|%u) (",
         header.get_dsap());
 
     output_string += print_sap(header.get_dsap());
 
     if(header.get_dsap_ig())
     {
-        output_string.add(", Group Address");
+        output_string.add((char*)", Group Address");
     }
     else
     {
-        output_string.add(", Individual Address");
+        output_string.add((char*)", Individual Address");
     }
 
-    output_string.add(")\n");
+    output_string.add((char*)")\n");
 
-    output_string.add_hex("\tSSAP 0x%02X ",
+    output_string.add_hex((char*)"\tSSAP 0x%02X ",
         header.get_ssap());
 
-    output_string.add_bin("(%u%u%u%u%u%u%u|%u) (",
+    output_string.add_bin((char*)"(%u%u%u%u%u%u%u|%u) (",
         header.get_ssap());
 
     output_string += print_sap(header.get_ssap());
 
     if(header.get_ssap_cr())
     {
-        output_string.add(", Response");
+        output_string.add((char*)", Response");
     }
     else
     {
-        output_string.add(", Command");
+        output_string.add((char*)", Command");
     }
 
-    output_string.add(")\n");
+    output_string.add((char*)")\n");
 
-    output_string.add("\tCTRL ");
+    output_string.add((char*)"\tCTRL ");
 
-    output_string.add_hex("0x%02X%02X ",
+    output_string.add_hex((char*)"0x%02X%02X ",
         header.get_ctrl());
 
-    output_string.add_bin("(%u%u%u%u%u%u%u|%u|%u%u%u%u%u%u%u|%u|) ",
+    output_string.add_bin((char*)"(%u%u%u%u%u%u%u|%u|%u%u%u%u%u%u%u|%u|) ",
         header.get_ctrl());
 
-    output_string.add("(I-type, N(S) %u, N(R) %u",
+    output_string.add((char*)"(I-type, N(S) %u, N(R) %u",
         header.get_ctrl_ns(),
         header.get_ctrl_ns());
 
@@ -105,15 +105,15 @@ c_string llc_i_packet_handler(c_packet_info packet_info)
     {
         if(header.get_ssap_cr())
         {
-            output_string.add(", Finall");
+            output_string.add((char*)", Finall");
         }
         else
         {
-            output_string.add(", Poll");
+            output_string.add((char*)", Poll");
         }
     }
 
-    output_string.add(")\n");
+    output_string.add((char*)")\n");
 
     output_string += debug(packet_info);
  
@@ -128,58 +128,58 @@ c_string print_sap(byte sap)
     switch(sap)
     {
         case LLC_SAP_NLSAP:
-            return c_string("Null LSAP");
+            return c_string((char*)"Null LSAP");
 
         case LLC_SAP_ILSM:
-            return c_string("Individual LLC Sublayer Management");
+            return c_string((char*)"Individual LLC Sublayer Management");
 
         case LLC_SAP_GLSM:
-            return c_string("Group LLC Sublayer Management");
+            return c_string((char*)"Group LLC Sublayer Management");
 
         case LLC_SAP_SNAPC:
-            return c_string("SNA Path Control");
+            return c_string((char*)"SNA Path Control");
 
         case LLC_SAP_DODIP:
-            return c_string("DoD IP");
+            return c_string((char*)"DoD IP");
 
         case LLC_SAP_PLAN_0E:
-            return c_string("PROWAY-LAN");
+            return c_string((char*)"PROWAY-LAN");
 
         case LLC_SAP_EIA:
-            return c_string("EIA-RS 511");
+            return c_string((char*)"EIA-RS 511");
 
         case LLC_SAP_ISIIP:
-            return c_string("ISI IP");
+            return c_string((char*)"ISI IP");
 
         case LLC_SAP_PLAN_8E:
-            return c_string("PROWAY-LAN");
+            return c_string((char*)"PROWAY-LAN");
 
         case LLC_SAP_3COM:
-            return c_string("3Com");
+            return c_string((char*)"3Com");
 
         case LLC_SAP_SNAP:
-            return c_string("SNAP");
+            return c_string((char*)"SNAP");
 
         case LLC_SAP_BC:
-            return c_string("Banyan");
+            return c_string((char*)"Banyan");
 
         case LLC_SAP_LANMAN:
-            return c_string("Lan Manager");
+            return c_string((char*)"Lan Manager");
 
         case LLC_SAP_NOVELL:
-            return c_string("Novell");
+            return c_string((char*)"Novell");
 
         case LLC_SAP_NETBEUI:
-            return c_string("NetBEUI");
+            return c_string((char*)"NetBEUI");
 
         case LLC_SAP_CLNS:
-            return c_string("ISO CLNS IS 8473");
+            return c_string((char*)"ISO CLNS IS 8473");
 
         case LLC_SAP_GLOBAL:
-            return c_string("Global DSAP");
+            return c_string((char*)"Global DSAP");
 
         default:
-            return c_string("Unknown");
+            return c_string((char*)"Unknown");
     }
 }
 

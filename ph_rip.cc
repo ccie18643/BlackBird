@@ -45,26 +45,26 @@ c_string rip_packet_handler(c_packet_info packet_info)
 
     c_rip_header header(packet_info.packet);
 
-    output_string.add("RIP\t"); 
-    output_string.add("CMD %u (",
+    output_string.add((char*)"RIP\t"); 
+    output_string.add((char*)"CMD %u (",
         header.get_cmd());
 
     switch(header.get_cmd())
     {
         case RIP_CMD_REQUEST : 
-            output_string.add("REQUEST");
+            output_string.add((char*)"REQUEST");
             break;
 
         case RIP_CMD_RESPONSE : 
-            output_string.add("RESPONSE");
+            output_string.add((char*)"RESPONSE");
             break;
 
         default:
-            output_string.add("UNKNOWN");
+            output_string.add((char*)"UNKNOWN");
     }    
 
 
-    output_string.add(")  VER %u  (ROUTES %u)\n",
+    output_string.add((char*)")  VER %u  (ROUTES %u)\n",
         header.get_ver(),
         packet_info.rip_entries_len / RIP_ENTRY_LEN);
 
@@ -72,21 +72,21 @@ c_string rip_packet_handler(c_packet_info packet_info)
     {
         c_rip_authentry authentry(packet_info.rip_authentry);
 
-        output_string.add("\n[AUTH]\tAUTHTYPE %u (",
+        output_string.add((char*)"\n[AUTH]\tAUTHTYPE %u (",
             authentry.get_type());
 
         switch(authentry.get_type())
         {
             case RIP_AUTHTYPE_SIMPLE :
-                output_string.add("SIMPLE");
-                output_string.add(")  AUTHKEY ");
+                output_string.add((char*)"SIMPLE");
+                output_string.add((char*)")  AUTHKEY ");
                 output_string.add_raw((byte*)authentry.get_key(), 16);
                 break;
 
             case RIP_AUTHTYPE_MD5 :
             {
-                output_string.add("MD5");
-                output_string.add(")  LEN %u  KEYID %u  ADLEN %u  SEQ %u",
+                output_string.add((char*)"MD5");
+                output_string.add((char*)")  LEN %u  KEYID %u  ADLEN %u  SEQ %u",
                     authentry.get_len(),
                     authentry.get_keyid(),
                     authentry.get_adlen(),
@@ -95,10 +95,10 @@ c_string rip_packet_handler(c_packet_info packet_info)
             }
 
             default:
-                output_string.add("UNKNOWN");
+                output_string.add((char*)"UNKNOWN");
         }
 
-        output_string.add("\n");
+        output_string.add((char*)"\n");
     }
 
 
@@ -116,26 +116,26 @@ c_string rip_packet_handler(c_packet_info packet_info)
         conv_ip_str(nexthop_string, entry.get_nexthop());
 
 
-        output_string.add("\n[ROUTE]\t");
+        output_string.add((char*)"\n[ROUTE]\t");
 
         switch(header.get_ver())
         {
             case 1 :
             {
-                output_string.add("AFI %u (",
+                output_string.add((char*)"AFI %u (",
                     entry.get_afi());
 
                 switch(entry.get_afi())
                 {
                     case AFI_INET :
-                        output_string.add("INET");
+                        output_string.add((char*)"INET");
                         break;
 
                     default:
-                        output_string.add("UNKNOWN");
+                        output_string.add((char*)"UNKNOWN");
                 }
 
-                output_string.add(")  IP %s  METRIC %u",
+                output_string.add((char*)")  IP %s  METRIC %u",
                     ip_string,
                     entry.get_metric());
 
@@ -144,25 +144,25 @@ c_string rip_packet_handler(c_packet_info packet_info)
 
             case 2 :
             {
-                output_string.add("AFI %u (",
+                output_string.add((char*)"AFI %u (",
                     entry.get_afi());
 
                 switch(entry.get_afi())
                 {
                     case AFI_INET :
-                        output_string.add("INET");
+                        output_string.add((char*)"INET");
                         break;
 
                     default:
-                        output_string.add("UNKNOWN");
+                        output_string.add((char*)"UNKNOWN");
                 }
 
-                output_string.add(")  TAG %u  IP %s  MASK %s\n",
+                output_string.add((char*)")  TAG %u  IP %s  MASK %s\n",
                     entry.get_tag(),
                     ip_string,
                     mask_string);
 
-                output_string.add("\tNEXTHOP %s  METRIC %u",
+                output_string.add((char*)"\tNEXTHOP %s  METRIC %u",
                     nexthop_string,
                     entry.get_metric());
 
@@ -170,7 +170,7 @@ c_string rip_packet_handler(c_packet_info packet_info)
             }
         }
 
-        output_string.add("\n");
+        output_string.add((char*)"\n");
     }
 
     if(packet_info.rip_authentry)
@@ -181,9 +181,9 @@ c_string rip_packet_handler(c_packet_info packet_info)
         {
             c_rip_md5entry md5entry(packet_info.rip_md5entry);
 
-            output_string.add("\n[MD5]\t");
+            output_string.add((char*)"\n[MD5]\t");
             output_string += print_hex_data(md5entry.get_key(), 16, false);
-            output_string.add("\n");
+            output_string.add((char*)"\n");
         }
     }
 

@@ -45,26 +45,26 @@ c_string ripng_packet_handler(c_packet_info packet_info)
 
     c_rip_header header(packet_info.packet);
 
-    output_string.add("RIPng\t"); 
-    output_string.add("CMD %u (",
+    output_string.add((char*)"RIPng\t"); 
+    output_string.add((char*)"CMD %u (",
         header.get_cmd());
 
     switch(header.get_cmd())
     {
         case RIP_CMD_REQUEST : 
-            output_string.add("REQUEST");
+            output_string.add((char*)"REQUEST");
             break;
 
         case RIP_CMD_RESPONSE : 
-            output_string.add("RESPONSE");
+            output_string.add((char*)"RESPONSE");
             break;
 
         default:
-            output_string.add("UNKNOWN");
+            output_string.add((char*)"UNKNOWN");
     }    
 
 
-    output_string.add(")  VER %u\n",
+    output_string.add((char*)")  VER %u\n",
         header.get_ver());
 
 
@@ -79,11 +79,11 @@ c_string ripng_packet_handler(c_packet_info packet_info)
 
                 if(route_entry.get_metric() != 0xFF)
                 {
-                    output_string.add("\n[ROUTE]\t");
+                    output_string.add((char*)"\n[ROUTE]\t");
 
                     string prefix_string[40];
 
-                    output_string.add("PREFIX %s/%u  TAG %u  HOP %u",
+                    output_string.add((char*)"PREFIX %s/%u  TAG %u  HOP %u",
                         conv_ip6_str(prefix_string, route_entry.get_prefix()),
                         route_entry.get_prefix_len(),
                         route_entry.get_tag(),
@@ -94,11 +94,11 @@ c_string ripng_packet_handler(c_packet_info packet_info)
                     c_ripng_next_hop_entry next_hop_entry(packet_info.packet
                         + RIPNG_HEADER_LEN + i * RIPNG_ENTRY_LEN);
 
-                    output_string.add("\n[NHOP]\t");
+                    output_string.add((char*)"\n[NHOP]\t");
 
                     string prefix_string[40];
 
-                    output_string.add("NHOP %s",
+                    output_string.add((char*)"NHOP %s",
                         conv_ip6_str(prefix_string, next_hop_entry.get_next_hop()));
                 }
 
@@ -106,7 +106,7 @@ c_string ripng_packet_handler(c_packet_info packet_info)
             }
         }
 
-        output_string.add("\n");
+        output_string.add((char*)"\n");
     }
 
 
