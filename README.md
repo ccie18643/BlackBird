@@ -7,9 +7,9 @@ My first network-related project that has been coded at the beginning of my care
 
 ---
 
-## Examples
+### Examples
 
-### Sample OSPF communication packet captures.
+#### Sample OSPF communication packet captures.
 ![Sample Blackbird OSPF output](https://github.com/ccie18643/Blackbird/blob/main/pictures/ospf_01.png)
 
 ![Sample Blackbird OSPF output](https://github.com/ccie18643/Blackbird/blob/main/pictures/ospf_02.png)
